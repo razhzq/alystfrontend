@@ -2,10 +2,24 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import alyst from "./assets/alyst.png";
+import note from "./assets/note.svg";
 
 function App() {
-
   const [showModal, setShowModal] = useState(false);
+  const [focus, setFocus] = useState(false);
+  const [collateral, setCollateral] = useState(0.0);
+  const [modalType, setModalType] = useState(true); // true = Supply false = Borrow
+
+
+  const handleSupplyModal = () => {
+     setShowModal(true);
+     setModalType(true);
+  }
+
+  const handleBorrowModal = () => {
+    setShowModal(true);
+    setModalType(false);
+  }
 
   return (
     <div className=" w-screen min-h-screen bg-[#040D12] m-0 font-proto font-light">
@@ -57,10 +71,16 @@ function App() {
               </div>
             </div>
             <div className=" w-full flex h-[65%] bg-gradient-to-tr from-blackPurple to-darkerPurple  items-center justify-center">
-              <div className=" w-[180px] flex mx-10 h-[69px] items-center justify-center rounded-xl cursor-pointer bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl  hover:shadow-indigo-500/40" onClick={() => setShowModal(true)}>
+              <div
+                className=" w-[180px] flex mx-10 h-[69px] items-center justify-center rounded-xl cursor-pointer bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl  hover:shadow-indigo-500/40"
+                onClick={() => handleSupplyModal()}
+              >
                 SUPPLY
               </div>
-              <div className=" w-[180px] flex mx-10 h-[69px] items-center justify-center rounded-xl cursor-pointer bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl hover:shadow-indigo-500/40" onClick={() => setShowModal(true)}>
+              <div
+                className=" w-[180px] flex mx-10 h-[69px] items-center justify-center rounded-xl cursor-pointer bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl hover:shadow-indigo-500/40"
+                onClick={() => handleBorrowModal()}
+              >
                 BORROW
               </div>
             </div>
@@ -77,59 +97,65 @@ function App() {
           </div>
         </div>
       </div>
-      {showModal ? <>
-          <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+      {showModal ? (
+        <>
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
+            <div className="relative my-6 mx-auto w-[500px] ">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 rounded-lg relative flex flex-col w-full bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl outline-none focus:outline-none">
                 {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold">
-                    Modal Title
-                  </h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
-                  </button>
+                <div className="flex  w-full h-[80px] items-center justify-between p-5  rounded-t">
+                  <h3 className="text-xl font-semibold">Supply</h3>
+
+                  <img src={note} className=" w-10 h-10" />
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    I always felt like I could do anything. That’s the main
-                    thing people are controlled by! Thoughts- their perception
-                    of themselves! They're slowed down by their perception of
-                    themselves. If you're taught you can’t do anything, you
-                    won’t do anything. I was taught I could do everything.
-                  </p>
+                  <div className=" w-full h-[80px] p-3 flex flex-row justify-between bg-cardinGreen rounded-lg">
+                    <input
+                      placeholder="0.0"
+                      type="number"
+                      className=" w-[50%] h-full text-2xl bg-transparent border-none p-3 caret-white focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    />
+                    <div className=" w-[50%] p-2 flex flex-col h-full items-end">
+                      <h4 className="mt-2">NOTE</h4>
+                    </div>
+                  </div>
+                  <div className=" flex w-full h-[80px] mt-3 p-3 justify-between items-center bg-cardinGreen rounded-lg  ">
+                    {modalType ? <h4>SUPPLY APR</h4> : <h4>BORROW APR</h4> }
+                    <h4>5%</h4>
+                  </div>
+                  <div className=" flex w-full h-[80px] mt-3 p-3 justify-between items-center bg-cardinGreen rounded-lg  ">
+                    <h4>COLLATERAL FACTOR</h4>
+                    <h4>65%</h4>
+                  </div>
+                  {/* <input type="number" className=" w-full h-[80px] text-2xl flex bg-cardinGreen shadow-xl rounded-lg caret-white p-5 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" value={collateral} onChange={(e) => setCollateral(e.target.value)} onClick={() => setFocus(true)} autoFocus={focus}>
+                     
+                  </input> */}
                 </div>
                 {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex items-center justify-end p-6  rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Close
+                    CANCEL
                   </button>
                   <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
-                    Save Changes
+                    CONFIRM
                   </button>
                 </div>
               </div>
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-        </>  :null}
+        </>
+      ) : null}
     </div>
   );
 }
