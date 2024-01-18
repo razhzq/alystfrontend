@@ -41,20 +41,20 @@ function App() {
       {/* end of navbar */}
       <div className="lending w-full flex flex-grow flex-col  items-center  justify-center">
         <div className=" apy-container w-full flex justify-center">
-          <div className=" w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md">
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md">
             <h4 className=" text-sm">TOKEN</h4>
             <p className=" text-xl">NOTE</p>
           </div>
-          <div className=" w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
             <h4 className=" text-sm">SUPPLY APY</h4>
             <p className=" text-xl">5%</p>
           </div>
-          <div className=" w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
             <h4 className=" text-sm">BORROW APR</h4>
             <p className=" text-xl">10%</p>
           </div>
         </div>
-        <div className=" user-container w-full flex items-center justify-center">
+        <div className=" user-container w-full flex items-center justify-center ">
           <div className=" w-[35%] flex flex-col h-[300px] ">
             <div className=" w-full flex h-[35%] p-3 bg-gradient-to-tr  from-darkerPurple to-lightDarkPurple shadow-xl items-center">
               <div className=" w-[30%] ml-10 mt-5 h-full flex flex-col ">
