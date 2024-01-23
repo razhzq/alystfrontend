@@ -8,12 +8,63 @@ import eth from "../node_modules/cryptocurrency-icons/svg/icon/eth.svg";
 import usdc from "../node_modules/cryptocurrency-icons/svg/icon/usdc.svg";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import { atom, useAtom, useAtomValue } from "jotai";
+import web3 from "web3";
+
+const walletAtom = atom("");
+const chainIdTestnet = 7701;
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [focus, setFocus] = useState(false);
   const [collateral, setCollateral] = useState(0.0);
   const [modalType, setModalType] = useState(true); // true = Supply false = Borrow
+  const [wallet, setWallet] = useAtom(walletAtom);
+
+  const handleConnectWallet = async () => {
+    if (window.ethereum) {
+      if (window.ethereum.networkVersion !== chainIdTestnet) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: web3.utils.toHex(chainIdTestnet) }],
+          });
+        } catch (err) {
+          if (err.code === 4902) {
+            await window.ethereum.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainName: "Canto Testnet",
+                  chainId: web3.utils.toHex(chainIdTestnet),
+                  nativeCurrency: {
+                    name: "CANTO",
+                    decimals: 18,
+                    symbol: "CANTO",
+                  },
+                  rpcUrls: ["https://canto-testnet.plexnode.wtf"],
+                },
+              ],
+            });
+          }
+        }
+
+        await window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((accounts) => {
+            setWallet(accounts[0]);
+          });
+      } else {
+        await window.ethereum
+          .request({ method: "eth_requestAccounts" })
+          .then((accounts) => {
+            setWallet(accounts[0]);
+          });
+      }
+    } else {
+      window.alert("No web3 wallet detected. Please Install metamask!");
+    }
+  };
 
   const handleSupplyModal = () => {
     setShowModal(true);
@@ -38,8 +89,16 @@ function App() {
             Liquidation
           </div>
         </div>
-        <div className=" ml-auto m-1 mr-5 w-[160px] text-center rounded-md  whitespace-nowrap">
-          Connect Wallet
+        <div
+          className=" ml-auto m-1 mr-5 w-[160px] text-center rounded-md  whitespace-nowrap cursor-pointer"
+          onClick={handleConnectWallet}
+        >
+          {/* Connect Wallet */}
+          {wallet
+            ? `${wallet.substring(0, 3)}...${wallet.substring(
+                wallet.length - 3
+              )}`
+            : "Connect Wallet"}
         </div>
       </div>
       {/* end of navbar */}
@@ -66,17 +125,17 @@ function App() {
                 <p className=" text-xl mt-2">$20</p>
               </div>
               <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col ">
-                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple cursor-pointer shadow-xl ">
                   <h4>SUPPLY</h4>{" "}
                 </div>
               </div>
               <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col whitespace-nowrap ">
-                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple  ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple cursor-pointer shadow-xl  ">
                   <h4>WITHDRAW</h4>{" "}
                 </div>
               </div>
               <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col whitespace-nowrap ">
-                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple cursor-pointer shadow-xl ">
                   <h4>CLAIM</h4>
                 </div>
               </div>
