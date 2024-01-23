@@ -3,6 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import alyst from "./assets/alyst.png";
 import note from "./assets/note.svg";
+import canto from "./assets/canto.svg";
+import eth from "../node_modules/cryptocurrency-icons/svg/icon/eth.svg";
+import usdc from "../node_modules/cryptocurrency-icons/svg/icon/usdc.svg";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -10,16 +15,15 @@ function App() {
   const [collateral, setCollateral] = useState(0.0);
   const [modalType, setModalType] = useState(true); // true = Supply false = Borrow
 
-
   const handleSupplyModal = () => {
-     setShowModal(true);
-     setModalType(true);
-  }
+    setShowModal(true);
+    setModalType(true);
+  };
 
   const handleBorrowModal = () => {
     setShowModal(true);
     setModalType(false);
-  }
+  };
 
   return (
     <div className=" w-screen min-h-screen bg-[#040D12] m-0 font-proto font-light">
@@ -41,16 +45,16 @@ function App() {
       {/* end of navbar */}
       <div className="lending w-full flex flex-grow flex-col  items-center  justify-center">
         <div className=" apy-container w-full flex justify-center">
-          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md">
-            <h4 className=" text-sm">TOKEN</h4>
-            <p className=" text-xl">NOTE</p>
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-blackPurple to-darkerPurple shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md">
+            <h4 className=" text-sm">Borrow Capacity</h4>
+            <p className=" text-xl">100%</p>
           </div>
-          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
-            <h4 className=" text-sm">SUPPLY APY</h4>
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-blackPurple to-darkerPurple shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
+            <h4 className=" text-sm">Liquidation Point</h4>
             <p className=" text-xl">5%</p>
           </div>
-          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
-            <h4 className=" text-sm">BORROW APR</h4>
+          <div className=" relative right-[70px] w-[13%] h-[100px] flex flex-col justify-center p-5 mx-10 bg-gradient-to-tr from-blackPurple to-darkerPurple shadow-xl my-10 hover:shadow-indigo-500/40  rounded-md ">
+            <h4 className=" text-sm">Available to Borrow</h4>
             <p className=" text-xl">10%</p>
           </div>
         </div>
@@ -58,20 +62,91 @@ function App() {
           <div className=" w-[35%] flex flex-col h-[300px] ">
             <div className=" w-full flex h-[35%] p-3 bg-gradient-to-tr  from-darkerPurple to-lightDarkPurple shadow-xl items-center">
               <div className=" w-[30%] ml-10 mt-5 h-full flex flex-col ">
-                <h4 className=" text-l">BALANCE</h4>
-                <p className=" text-xl">$20</p>
+                <h4 className=" text-sm">NOTE BALANCE</h4>
+                <p className=" text-xl mt-2">$20</p>
               </div>
-              <div className=" w-[30%] ml-10 mt-5 h-full flex flex-col ">
-                <h4 className=" text-l">SUPPLIED</h4>
-                <p className=" text-xl">$20</p>
+              <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple ">
+                  <h4>SUPPLY</h4>{" "}
+                </div>
               </div>
-              <div className=" w-[30%] ml-10 mt-5 h-full flex flex-col ">
-                <h4 className=" text-l">BORROWED</h4>
-                <p className=" text-xl">$20</p>
+              <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col whitespace-nowrap ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple  ">
+                  <h4>WITHDRAW</h4>{" "}
+                </div>
+              </div>
+              <div className=" w-[30%] ml-10 mt-8 h-full flex flex-col whitespace-nowrap ">
+                <div className=" p-1 text-l flex items-center justify-center rounded-xl bg-gradient-to-tr from-blackPurple to-darkerPurple ">
+                  <h4>CLAIM</h4>
+                </div>
               </div>
             </div>
-            <div className=" w-full flex h-[65%] bg-gradient-to-tr from-blackPurple to-darkerPurple  items-center justify-center">
-              <div
+            <div className=" w-full flex flex-col h-[65%] bg-gradient-to-tr from-blackPurple to-darkerPurple">
+              <div className=" flex w-full h-[35%] p-2  ">
+                <img src={eth} alt="ETH" className=" w-10 ml-5" />
+                <div className=" flex h-full justify-center items-center ml-5">
+                  <h4>ETH</h4>
+                </div>
+                <div className=" flex h-full w-[80px] ml-[140px] justify-center items-center text-lg ">
+                  <h3>$0.00</h3>
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl text-sm cursor-pointer bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl  hover:shadow-indigo-500/40"
+                  onClick={() => handleSupplyModal()}
+                >
+                  SUPPLY
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl cursor-pointer text-sm  bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl hover:shadow-indigo-500/40"
+                  onClick={() => handleBorrowModal()}
+                >
+                  BORROW
+                </div>
+              </div>
+              <div className="  flex w-full h-[35%] p-2   ">
+                <img src={canto} alt="Canto" className=" w-8 ml-5" />
+                <div className=" flex h-full justify-center items-center ml-5">
+                  <h4>CANTO</h4>
+                </div>
+                <div className=" flex h-full w-[80px] ml-[129px] justify-center items-center text-lg ">
+                  <h3>$0.00</h3>
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl text-sm cursor-pointer bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl  hover:shadow-indigo-500/40"
+                  onClick={() => handleSupplyModal()}
+                >
+                  SUPPLY
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl cursor-pointer text-sm  bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl hover:shadow-indigo-500/40"
+                  onClick={() => handleBorrowModal()}
+                >
+                  BORROW
+                </div>
+              </div>
+              <div className=" flex w-full h-[35%] p-2 ">
+                <img src={usdc} alt="usdc" className=" w-10 ml-5" />
+                <div className=" flex h-full justify-center items-center ml-3">
+                  <h4>USDC</h4>
+                </div>
+                <div className=" flex h-full w-[80px] ml-[140px] justify-center items-center text-lg ">
+                  <h3>$0.00</h3>
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl text-sm cursor-pointer bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl  hover:shadow-indigo-500/40"
+                  onClick={() => handleSupplyModal()}
+                >
+                  SUPPLY
+                </div>
+                <div
+                  className=" w-[120px] flex mx-5 h-[40px] items-center justify-center rounded-xl cursor-pointer text-sm  bg-gradient-to-tr from-darkerPurple to-lightDarkPurple shadow-xl hover:shadow-indigo-500/40"
+                  onClick={() => handleBorrowModal()}
+                >
+                  BORROW
+                </div>
+              </div>
+
+              {/* <div
                 className=" w-[180px] flex mx-10 h-[69px] items-center justify-center rounded-xl cursor-pointer bg-gradient-to-tr from-cardinGreen to-cardingGreenLight shadow-xl  hover:shadow-indigo-500/40"
                 onClick={() => handleSupplyModal()}
               >
@@ -82,7 +157,7 @@ function App() {
                 onClick={() => handleBorrowModal()}
               >
                 BORROW
-              </div>
+              </div> */}
             </div>
           </div>
           <div className=" w-[20%] pl-10 h-[300px] flex flex-col p-5">
@@ -122,7 +197,7 @@ function App() {
                     </div>
                   </div>
                   <div className=" flex w-full h-[80px] mt-3 p-3 justify-between items-center bg-cardinGreen rounded-lg  ">
-                    {modalType ? <h4>SUPPLY APR</h4> : <h4>BORROW APR</h4> }
+                    {modalType ? <h4>SUPPLY APR</h4> : <h4>BORROW APR</h4>}
                     <h4>5%</h4>
                   </div>
                   <div className=" flex w-full h-[80px] mt-3 p-3 justify-between items-center bg-cardinGreen rounded-lg  ">
